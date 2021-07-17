@@ -1,0 +1,97 @@
+.registeration-form-div{
+    width: 55%;
+    border-radius: 5px;
+    background-color:white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 4%;
+    height: auto;
+    margin:4% auto 4% auto;
+    text-align: justify;
+    padding-top: 2%;
+    padding: 10px 20px;
+    border: 3px solid blue;
+    padding: 10px 20px;
+}
+label {
+	float: left;
+    width: 11em;
+    text-align: right;
+    
+}
+input[type=password],input[type = text]
+{
+    padding:1%;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 40%;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-bottom: 3px solid black;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 1% 2% 1% 1%;
+}
+ .btn{
+    background:-moz-linear-gradient(#e8ffff,#8cd3ff); /* Firefox */ 
+    background: -o-linear-gradient(#e8ffff,#8cd3ff); /* Opera */ 
+    background: -webkit-linear-gradient(#e8ffff,#8cd3ff);/* Chrome, Safari */
+    background: linear-gradient( #e8ffff,#8cd3ff);
+    color:black;
+    font-size: 1.5em;
+    padding: 1% 5% 1%  5%;
+    font-family: georgia, serif;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 25px; 
+}
+fieldset {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: .5em;
+    border: grey solid;
+}
+legend {
+    color: blue;
+    font-weight: bold;
+    font-size: 85%;
+    margin-bottom: .5em;
+}
+label.error {
+	float: none;
+	color: red;
+	font-size: x-small;
+}
+
+/*Login form style*/
+.login-div{
+    
+    width: 40%;
+    border-radius: 5px;
+    background-color:white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 4%;
+    height: 45vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-top: 2%;
+}
+.login-div input[type=password], .login-div input[type = text]{
+    padding:2% -2% 2% 1%;
+    margin: 0% 0% 2% 0%;
+}
+
+
+h1{
+    text-align: center;
+    color: #296d98;
+    font-size: 2.2em;
+    margin: 0% 2% 1% 2%;
+    padding: 2%;
+    border-radius: 10px;
+    font-family: georgia, serif;
+    font-weight: bolder;
+}
