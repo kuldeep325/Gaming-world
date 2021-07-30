@@ -16,11 +16,13 @@
     <!-- nav -->
     <nav class="navbar">
         <div class="navbar-center">
-            <span class="nav-icon">
-                <i class="fas fa-bars"></i>
-            </span>
+            <div class="hamburgerMenu">
+                <span class="nav-icon">
+                    <i class="fas fa-bars"></i>
+                </span>
+            </div>
             <!-- logo here -->
-            <span>Gaming World</span>
+            <span class="logo"><a href="#"> Gaming World </a></span>
             <div class="cart-btn">
                 <span class="nav-icon">
                     <i class="fas fa-cart-plus"></i>
@@ -31,19 +33,63 @@
     </nav>
     <!-- end of nav -->
     <!-- hero image -->
-    <header class="hero">
-        <div class="banner">
-            <h1 class="banner-title">Game Collection</h1>
-            <a href="#products-page">
-                <button class="banner-btn">shop now </button>
-            </a>
+    <header id="home">
+        <div id="img1" class="hero slide fade">
+            <div class="banner">
+
+                <a href="#products-page">
+                    <button class="banner-btn">shop now </button>
+                </a>
+            </div>
+        </div>
+        <div id="img2" class="hero slide fade">
+            <div class="banner">
+
+                <a href="#products-page">
+                    <button class="banner-btn">shop now </button>
+                </a>
+            </div>
+        </div>
+        <div id="img3" class="hero slide fade">
+            <div class="banner">
+
+                <a href="#products-page">
+                    <button class="banner-btn">shop now </button>
+                </a>
+            </div>
+        </div>
+        <div id="img4" class="hero slide fade">
+            <div class="banner">
+
+                <a href="#products-page">
+                    <button class="banner-btn">shop now </button>
+                </a>
+            </div>
+        </div>
+        <div id="img5" class="hero slide fade">
+            <div class="banner">
+
+                <a href="#products-page">
+                    <button class="banner-btn">shop now </button>
+                </a>
+            </div>
         </div>
     </header>
+    <div class="dotsbox" style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+
+    </div>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
     <!-- end of hero image -->
     <!-- game products -->
     <section id="products-page" class="products">
         <div class="section-title">
-            <h2>our products</h2>
+            <h2>game store</h2>
         </div>
         <div class="products-center">
             <!-- single product -->
@@ -57,11 +103,9 @@
                     </button>
                 </div>
                 <div class="product-tile">
-
                     <p>24/07/21</p>
                     <h3>The Legend of Zelda™: Skyward Sword HD</h3>
                     <h4>$15</h4>
-
                 </div>
             </article>
 
@@ -144,14 +188,15 @@
 
                 </div>
             </article>
-
             <!--End of single product -->
-
-
         </div>
     </section>
+    <footer style="text-align: center; padding: 8px;">
+        <a href="#">back to top</a>
+    </footer>
     <!--end of products  -->
     <script src="./main.js"></script>
+    <script src="./slider.js"></script>
 </body>
 
 </html>

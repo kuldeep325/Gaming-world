@@ -1,26 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
-@font-face {
-  font-family: 'museo-sans-700';
-  src: url(./fonts/MuseoSans_700.otf);
-  
-}
-@font-face {
-  font-family: 'museo-sans-100';
-  src: url(./fonts/MuseoSans-100.otf);
-}
-
-:root {
-  --primaryColor: #6ba4fa;
-  --mainWhite: #fff;
-  --mainBlack: #222;
-  --mainGrey: #ececec;
-  --cartbtn: rgb(98, 202, 98);
-  --mainSpacing: 0.1rem;
-  --mainTransition: all 0.3s linear;
-  --fontTitle: 'museo-sans-700', 'sans-serif';
-  --fontDate: 'museo-sans-100', 'sans-serif';
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -32,6 +9,40 @@ body {
   background: var(--mainWhite);
   font-family: "Lato", sans-serif;
 }
+/* imports */
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+/* End of imports */
+
+/* fonts */
+@font-face {
+  font-family: 'museo-sans-700';
+  src: url(./fonts/MuseoSans_700.otf);
+  
+}
+@font-face {
+  font-family: 'museo-sans-100';
+  src: url(./fonts/MuseoSans-100.otf);
+}
+
+@font-face {
+  font-family: 'pixel';
+  src: url(./fonts/PixelEmulator-xq08.ttf);
+}
+/*end of fonts */
+
+/* global variables */
+:root {
+  --primaryColor: #6ba4fa;
+  --mainWhite: #fff;
+  --mainBlack: #222;
+  --mainGrey: #ececec;
+  --cartbtn: rgb(98, 202, 98);
+  --mainSpacing: 0.1rem;
+  --mainTransition: all 0.3s linear;
+  --fontTitle: 'museo-sans-700', 'sans-serif';
+  --fontDate: 'museo-sans-100', 'sans-serif';
+}
+/* end of global variables */
 
 /* --------------- Navbar ---------------- */
 
@@ -55,7 +66,24 @@ body {
   justify-content: space-between;
   padding: 0 1.5rem;
 }
-
+/* logo */
+.navbar .logo {
+  font-family: 'pixel', sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+}
+.navbar .logo a{
+  text-decoration: none;
+  color: var(--primaryColor);
+}
+.navbar .logo a:hover{
+  color: blue;
+}
+.navbar .logo a:active{
+  color: red;
+}
+/* cart and hamburger */
+/* cart */
 .nav-icon {
   font-size: 1.5rem;
 }
@@ -74,15 +102,17 @@ body {
   border-radius: 30%;
   color: var(--mainWhite);
 }
+/* hamburger */
+.hamburgerMenu:hover{
+  cursor: pointer;
+}
+/* End of cart and hamburger */
 
 /* --------------- End of Navbar ---------------- */
-/* hero */
-/* slider */
 
-/* End of slider */
+/* hero image slider */
 .hero {
   min-height: calc(100vh - 60px);
-  background: url("./images/hero.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,41 +120,114 @@ body {
 
 .banner {
   text-align: center;
-  background: rgba(255, 255, 255, 0.8);
+  /* background: rgba(255, 255, 255, 0.8); */
   display: inline-block;
   padding: 2rem;
-}
-
-.banner-title {
-  font-size: 3.4rem;
-  text-transform: uppercase;
-  letter-spacing: var(--mainSpacing);
-  margin-bottom: 3rem;
 }
 
 .banner-btn {
   padding: 1rem 3rem;
   text-transform: uppercase;
   letter-spacing: var(--mainSpacing);
+  font-family: 'pixel';
   font-size: 1rem;
-  background: var(--primaryColor);
-  color: var(--mainBlack);
-  border: 1px solid var(--primaryColor);
+  /* font-weight: bold; */
+  background:  rgba(231, 226, 221, 40%);
+  color: white;
+  border: 1px solid grey;
   transition: var(--mainTransition);
   cursor: pointer;
+  
   /* border-radius: 30px; */
 }
 
+
 .banner-btn:hover {
-  background: transparent;
-  color: var(--primaryColor);
+  border: 1px solid white;
+  background:white ;
+  color: var(--mainBlack);
 }
 
 html {
   scroll-behavior: smooth;
 }
+/* -> images */
+#img1{	
+	background: url("./images/hero1.jpg") center no-repeat;
 
-/* ---------------End of Hero ---------------- */
+}
+#img2{	
+	background: url("./images/hero2.jpg") center/cover no-repeat;
+}
+#img3{	
+	background: url("./images/hero3.jpg") center/cover no-repeat;
+}
+#img4{	
+	background: url("./images/hero4.jpg") center/cover no-repeat;
+}
+#img5{	
+	background: url("./images/hero5.jpg") center/cover no-repeat;
+	
+}
+/* -> previoius-next */
+.prev, .next{
+	position: absolute;
+	top: 55%;
+	transform: translate(0, -55%);
+	font-size: 50px;
+	padding: 15px;
+	cursor: pointer;
+	color: #fff;
+	transition: 0.1s;
+	user-select: none;
+}
+.prev:hover, .next:hover{
+	color: #00a7ff; /* blue */
+}
+.next{
+	right: 0;
+}
+/* -> slide dots */
+.dotsbox{
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	bottom: 20px;
+	cursor: pointer;
+}
+ .dot{
+	display: inline-block;
+	width: 5px;
+	height: 5px;
+	border: 3px solid #fff;
+	border-radius: 50%;
+	margin: 0 10px;
+	cursor: pointer;
+	
+}
+.active, .dot:hover{
+	border-color: #00a7ff; /* blue */
+}
+/* -> fade */
+.fade {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1.5s;
+	animation-name: fade;
+	animation-duration: 1.5s;
+  }
+  @-webkit-keyframes fade {
+	from {opacity: .4} 
+	to {opacity: 1}
+  }
+  
+  @keyframes fade {
+	from {opacity: .4} 
+	to {opacity: 1}
+  }
+
+
+/* End of hero image slider */
+
 
 /* --------------- Products ---------------- */
 
@@ -133,6 +236,8 @@ html {
 }
 
 .section-title h2 {
+  color: grey;
+  font-family: 'pixel', sans-serif;
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 5rem;
@@ -159,7 +264,7 @@ html {
 
 .bag-btn {
   position: absolute;
-  top: 80%;
+  top: 75%;
   right: 0;
   background: var(--cartbtn);
   border: none;
