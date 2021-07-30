@@ -122,7 +122,7 @@ body {
   text-align: center;
   /* background: rgba(255, 255, 255, 0.8); */
   display: inline-block;
-  padding: 2rem;
+  /* padding: 2rem; */
 }
 
 .banner-btn {
@@ -131,14 +131,19 @@ body {
   letter-spacing: var(--mainSpacing);
   font-family: 'pixel';
   font-size: 1rem;
-  /* font-weight: bold; */
   background:  rgba(231, 226, 221, 40%);
   color: white;
   border: 1px solid grey;
   transition: var(--mainTransition);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
   
   /* border-radius: 30px; */
+}
+
+.banner a{
+  text-decoration: none;
 }
 
 
@@ -172,8 +177,8 @@ html {
 /* -> previoius-next */
 .prev, .next{
 	position: absolute;
-	top: 55%;
-	transform: translate(0, -55%);
+	top: 54%;
+	transform: translate(0, -54%);
 	font-size: 50px;
 	padding: 15px;
 	cursor: pointer;
