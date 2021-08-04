@@ -10,6 +10,13 @@ const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
 // cart
 let cart = [];
+let buttonsDOM = [];
+
+//test
+document.getElementById('redirect').addEventListener('click', function () {
+    location.href = "./signup.html"
+})
+//end of test
 
 // getting the products
 class Products {
@@ -42,7 +49,7 @@ class UI {
             <div class="img-container">
                 <img src=${product.image} alt="product" class="product-img">
 
-                <button onclick="clk(${product.id})" class="bag-btn" data-id=${product.id}>
+                <button class="bag-btn" data-id=${product.id}>
                     <i class="fas fa-shopping-cart"></i>
                     add to bag
                 </button>
@@ -51,18 +58,50 @@ class UI {
                 <p>24/07/21</p>
                 <h3>${product.Title}</h3>
                 <h4>$${product.Price}</h4>
+                <p>${product.Genre}</p>
             </div>
         </article>
             `
         });
         productsDOM.innerHTML = result;
     }
+    addToCartBtns() {
+        const buttons = [...document.querySelectorAll('.bag-btn')];
+        buttonsDOM = buttons;
+        buttons.forEach(button => {
+            let id = button.dataset.id;
+            let inCart = cart.find(item => item.id === id);
+            if (inCart) {
+                button.innerText = "In Cart";
+                button.disabled = true;
+            }
+
+            button.addEventListener('click', (e) => {
+                e.target.innerHTML = "In Cart";
+                e.target.disabled = true;
+                // get product from products
+                let cartItem = { ...Storage.getProducts(id), amount: 1 };
+                // add the product to cart
+                cart = [...cart, cartItem]
+                // save cart in the local storage
+                Storage.saveCart(cart)
+            })
+
+        });
+    }
 }
 
 // local storage
 class Storage {
     static saveProducts(products) {
-        localStorage.setItem("games", JSON.stringify(products))
+        localStorage.setItem("products", JSON.stringify(products))
+    }
+    static getProducts(id) {
+        let products = JSON.parse(localStorage.getItem('products'));
+        return products.find(product => product.id === id)
+    }
+    static saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart))
     }
 }
 
@@ -71,9 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const products = new Products();
     products.getProducts().then(products => {
         ui.displayProducts(products)
-
         Storage.saveProducts(products)
-    }
-    );
+    }).then(() => {
+        ui.addToCartBtns();
+    })
 
 })
