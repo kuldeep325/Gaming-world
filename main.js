@@ -1,3 +1,4 @@
+"use strict";
 //variables
 const cartBtn = document.querySelector(".cart-btn");
 const closeCartBtn = document.querySelector(".close-cart");
@@ -12,17 +13,19 @@ const productsDOM = document.querySelector(".products-center");
 let cart = [];
 let buttonsDOM = [];
 
-//test
-document.getElementById('redirect').addEventListener('click', function () {
-    location.href = "./signup.html"
-})
+
 //end of test
 
 // getting the products
 class Products {
     async getProducts() {
         try {
-            let result = await fetch('games.json');
+            let result = await fetch('./games.json', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
             let data = await result.json();
             let products = data.items;
             products = products.map(item => {
@@ -33,10 +36,12 @@ class Products {
             })
             return products
         } catch (error) {
-            document.write(`<h1 style="margin-top: 40vh; text-align: center">Sorry! <br>File not found</h1>`)
+            document.write(`<h1 style="margin-top: 40vh; text-align: center">Sorry! <br>File not found${error}</h1>`)
             console.log("File not found", error);
         }
     }
+
+
 }
 
 // display products
@@ -116,3 +121,46 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 })
+
+// log in
+$(document).ready(function () {
+
+    $("#signup-form").submit(function () {
+        var nm1 = $("#name1").val();
+        var ps1 = $("#pass1").val();
+        localStorage.setItem("n1", nm1);
+        localStorage.setItem("p1", ps1);
+
+    });
+    $("#login-form").submit(function () {
+        var enteredName = $("#name2").val();
+        var enteredPass = $("#pass2").val();
+
+        var storedName = localStorage.getItem("n1");
+        var storedPass = localStorage.getItem("p1");
+
+        if (enteredName == storedName && enteredPass == storedPass) {
+            window.location.href = "www.google.com"
+            // alert('hello')
+        }
+        else {
+            alert("Invalid Input, Please try with correct credentials!");
+        }
+
+    });
+
+
+
+});
+
+// model
+document.getElementById('button').addEventListener("click", function () {
+    document.querySelector('.bg-modal').style.display = "flex";
+    document.querySelector('body').style.overflow = "hidden";
+    document.querySelector('body').style.background = "black";
+});
+
+document.querySelector('.close').addEventListener("click", function () {
+    document.querySelector('.bg-modal').style.display = "none";
+    document.querySelector('body').style.overflow = "auto";
+});

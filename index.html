@@ -10,18 +10,17 @@
     <script defer src="./fontawesome-free-5.15.3-web/js/all.js"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
+
 </head>
 
 <body>
     <!-- nav -->
     <nav class="navbar">
         <div class="navbar-center">
-            <div class="hamburgerMenu">
-                <span class="nav-icon">
-                    <i class="fas fa-bars"></i>
-                </span>
-            </div>
-            <!-- logo here -->
+
+            <!-- model btn -->
+            <a href="#" id="button" class="button">log in</a>
+            <!-- end of model btn -->
             <span class="logo"><a href="#"> Gaming World </a></span>
             <div class="cart-btn">
                 <span class="nav-icon">
@@ -87,8 +86,37 @@
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
     <!-- end of hero image -->
     <!-- game products -->
+    <!-- Modal Section -->
+
+    <div class="bg-modal">
+
+        <div class="center">
+            <div class="close">+</div>
+            <h1>Login</h1>
+            <form id="login-form">
+                <div class="txt_field">
+                    <input id="name2" type="text" placeholder="" value="" required>
+                    <span></span>
+                    <label>Username</label>
+                </div>
+                <div class="txt_field">
+                    <input id="pass2" type="password" placeholder="" value="" required>
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                <div class="pass">Forgot Password?</div>
+                <input id="login_btn" type="submit" value="Login">
+                <div class="signup_link">
+                    Not a member? <a href="./signup.html">Signup</a>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+    <!--end of Modal Section -->
     <section id="products-page" class="products">
-        <button id="redirect">sign in</button>
+
         <div class="section-title">
             <h2>game store</h2>
 
@@ -145,8 +173,12 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./main.js"></script>
     <script src="./slider.js"></script>
+    <script src="./model.js"></script>
+    <script src="./login.js"></script>
+
 </body>
 
 </html>
