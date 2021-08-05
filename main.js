@@ -9,6 +9,8 @@ const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
 const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
+const loginModal = document.querySelector('.login-modal')
+const forgotPass = document.getElementsByClassName('pass')[0];
 // cart
 let cart = [];
 let buttonsDOM = [];
@@ -122,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
+
 // log in
 $(document).ready(function () {
 
@@ -148,19 +151,28 @@ $(document).ready(function () {
         }
 
     });
-
-
-
 });
 
+forgotPass.addEventListener('click', () => {
+    loginModal.style.display = "none";
+    document.querySelector('.pass-modal').style.display = "flex";
+})
 // model
-document.getElementById('button').addEventListener("click", function () {
-    document.querySelector('.bg-modal').style.display = "flex";
-    document.querySelector('body').style.overflow = "hidden";
+document.getElementById('button').addEventListener("click", login);
+document.querySelector('.forgot-close').addEventListener("click", close);
+document.querySelector('.login-close').addEventListener("click", close);
 
-});
 
-document.querySelector('.close').addEventListener("click", function () {
-    document.querySelector('.bg-modal').style.display = "none";
+function close() {
+    loginModal.style.display = "none";
+    document.querySelector('.pass-modal').style.display = "none";
     document.querySelector('body').style.overflow = "auto";
-});
+    document.querySelector('.products').style.display = 'block';
+}
+
+function login() {
+    loginModal.style.display = "flex";
+    document.querySelector('body').style.overflow = "hidden";
+    document.querySelector('.products').style.display = 'none';
+}
+
