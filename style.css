@@ -54,7 +54,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  background: rgb(231, 226, 221);
+  background: #6ba4fa;
   z-index: 1;
 }
 
@@ -72,16 +72,20 @@ body {
   font-family: 'pixel', sans-serif;
   font-size: 1.5em;
   text-align: center;
+  
 }
 .navbar .logo a{
   text-decoration: none;
-  color: var(--primaryColor);
+  color: var(--mainWhite);
+ 
 }
 .navbar .logo a:hover{
-  color: blue;
+  color: rgb(54, 26, 65);
+  transition: var(--mainTransition);
 }
 .navbar .logo a:active{
-  color: red;
+  color: rgb(190, 217, 252);
+  transition: var(--mainTransition);
 }
 /* cart and hamburger */
 /* cart */
@@ -92,16 +96,20 @@ body {
 .cart-btn {
   position: relative;
   cursor: pointer;
+  color: var(--mainWhite);
+  
 }
 
 .cart-items {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: var(--primaryColor);
+  background: var(--mainGrey);
+  font-weight: bold;
   padding: 0 5px;
   border-radius: 30%;
-  color: var(--mainWhite);
+  color: var(--mainBlack);
+  
 }
 /* hamburger */
 .hamburgerMenu:hover{
@@ -137,6 +145,7 @@ body {
   border: 1px solid grey;
   transition: var(--mainTransition);
   cursor: pointer;
+  border-radius: 18px;
 }
 
 .banner a{
@@ -379,11 +388,14 @@ img {
     min-width: 450px;
   }
 }
+
+
 @media screen and (max-width: 768px) {
-  .banner-btn {
-    padding: 2px;
+  .prev, .next {
+    visibility: hidden;
   }
 }
+
 
 .close-cart {
   font-size: 1.7rem;
@@ -467,20 +479,26 @@ img {
 
 
 .button {
-	background-color: var(--Blue);
-
+	background-color: rgb(110, 201, 110);
 	border-radius: 30px;
 	text-decoration: none;
-	padding: 10px 28px;
+	padding: 10px;
+ font-size: 0.8em;
 	color: white;
   transition: var(--mainTransition);
-	display: inline-block;
+	display: flex;
+  flex-wrap: wrap;
+ 
 	
+}
+.button p{
+  width: 100%;
+  padding:0  18px;
 }
 .button:hover {
   
-  background-color: var(--primaryColor);
-  color: var(--mainWhite);
+  background-color: var(--mainWhite);
+  color: var(--mainBlack);
  
 }
 
@@ -582,11 +600,12 @@ form .txt_field {
   border: none;
   background: none;
   outline: none;
+  margin: 0;
 }
 
 .txt_field label {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 5px;
   color: #adadad;
   transform: translateY(-50%);
@@ -598,7 +617,7 @@ form .txt_field {
 .txt_field span::before {
   content: '';
   position: absolute;
-  top: 54px;
+  top: 40px;
   left: 0;
   width: 0%;
   height: 2px;
