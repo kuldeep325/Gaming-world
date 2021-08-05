@@ -1,5 +1,6 @@
 "use strict";
 //variables
+const body = document.querySelector('body');
 const cartBtn = document.querySelector(".cart-btn");
 const closeCartBtn = document.querySelector(".close-cart");
 const clearCartBtn = document.querySelector(".clear-cart");
@@ -9,12 +10,19 @@ const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
 const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
+const loginBtn = document.querySelector(".login-button")
 const loginModal = document.querySelector('.login-modal')
-const forgotPass = document.getElementsByClassName('pass')[0];
+const loginClose = document.querySelector('.login-close')
+const forgotPass = document.querySelector('.pass');
+const forgotPassClose = document.querySelector('.forgot-close')
+const signupModal = document.querySelector(".signup_link");
+const account = document.querySelector(".account_name");
+const userName = document.querySelector(".userName");
+const signoutbtn = document.querySelector('.signoutbtn');
 // cart
 let cart = [];
 let buttonsDOM = [];
-
+let loginStatus = false;
 
 //end of test
 
@@ -131,48 +139,108 @@ $(document).ready(function () {
     $("#signup-form").submit(function () {
         var nm1 = $("#name1").val();
         var ps1 = $("#pass1").val();
-        localStorage.setItem("n1", nm1);
-        localStorage.setItem("p1", ps1);
+        var email = $("#email").val();
+        var ps1confirm = $("#confirmPass").val();
+        if ((nm1.length > 0 && ps1.length > 0) && (ps1 === ps1confirm)) {
+            document.getElementById('signup-form').innerHTML = "";
+            document.getElementById('signupHead').innerHTML = `<p>Signup successful</p><br><p>Please login!</p> `
+            localStorage.setItem("username", nm1);
+            localStorage.setItem("password", ps1);
+            localStorage.setItem("email", email);
+        }
+        else if (ps1 !== ps1confirm) {
+            alert("password not matched")
+        }
+        else {
+            alert("please input username and password", nm1)
+        }
+
 
     });
     $("#login-form").submit(function () {
         var enteredName = $("#name2").val();
         var enteredPass = $("#pass2").val();
-
-        var storedName = localStorage.getItem("n1");
-        var storedPass = localStorage.getItem("p1");
+        var storedName = localStorage.getItem("username");
+        var storedPass = localStorage.getItem("password");
 
         if (enteredName == storedName && enteredPass == storedPass) {
-            window.location.href = "www.google.com"
-            // alert('hello')
+            loginBtn.style.display = "none";
+            account.style.display = "flex";
+            userName.innerHTML = enteredName;
+            loginStatus = true;
+            closeLogin();
         }
         else {
-            alert("Invalid Input, Please try with correct credentials!");
+
+            document.querySelector('.error').style.display = "block"
+            setTimeout(function () {
+                document.querySelector('.error').style.display = "none"
+            }, 3000)
         }
 
     });
+    $("#forgotPassword").submit(function () {
+        var RegisteredEmail = localStorage.getItem("email")
+        var ForgotPassEmail = $("#email").val();
+        if (ForgotPassEmail === RegisteredEmail) {
+
+        }
+    })
 });
 
-forgotPass.addEventListener('click', () => {
-    loginModal.style.display = "none";
-    document.querySelector('.pass-modal').style.display = "flex";
-})
-// model
-document.getElementById('button').addEventListener("click", login);
-document.querySelector('.forgot-close').addEventListener("click", close);
-document.querySelector('.login-close').addEventListener("click", close);
+// event click
+loginBtn.addEventListener("click", login);
+signupModal.addEventListener("click", signUp);
+forgotPass.addEventListener('click', forgotPassModal);
+signoutbtn.addEventListener('click', signout)
 
+// event close
+loginClose.addEventListener("click", closeLogin);
+document.querySelector('.signup-close').addEventListener("click", closesignUp);
+forgotPassClose.addEventListener("click", closeForgotPass);
 
-function close() {
+// close modal
+function closeLogin() {
     loginModal.style.display = "none";
     document.querySelector('.pass-modal').style.display = "none";
-    document.querySelector('body').style.overflow = "auto";
+    body.style.overflow = "auto";
     document.querySelector('.products').style.display = 'block';
 }
+function closeForgotPass() {
 
+    document.querySelector('.pass-modal').style.display = "none";
+    body.style.overflow = "auto";
+    document.querySelector('.products').style.display = 'block';
+}
+function closesignUp() {
+    document.querySelector('.signup-modal').style.display = "none";
+    body.style.overflow = "auto";
+    document.querySelector('.products').style.display = 'block';
+}
+// login modal
 function login() {
     loginModal.style.display = "flex";
-    document.querySelector('body').style.overflow = "hidden";
+    document.querySelector('.signup-modal').style.display = "none";
+    body.style.overflow = "hidden";
     document.querySelector('.products').style.display = 'none';
+}
+// 
+function signUp() {
+    body.style.overflow = "none";
+    loginModal.style.display = "none";
+    document.querySelector('.pass-modal').style.display = "none";
+    document.querySelector('.products').style.display = 'none';
+    document.querySelector('.signup-modal').style.display = "flex";
+}
+
+// forgot pass modal
+function forgotPassModal() {
+    loginModal.style.display = "none";
+    document.querySelector('.pass-modal').style.display = "flex";
+}
+
+function signout() {
+    loginBtn.style.display = "flex";
+    account.style.display = "none";
 }
 

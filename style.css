@@ -477,13 +477,16 @@ img {
 /* --------------- End of Cart ---------------- */
 /* model */
 
-
+.fa-sign-out-alt{
+  color: red;
+  margin: 0  0 0 8px;
+}
 .login-button {
 	background-color: rgb(110, 201, 110);
 	border-radius: 30px;
 	text-decoration: none;
 	padding: 10px;
- font-size: 0.8em;
+  font-size: 0.8em;
 	color: white;
   transition: var(--mainTransition);
 	display: flex;
@@ -516,8 +519,8 @@ img {
 	margin: 10px;
 }
 
-.login-modal, .pass-modal {
-	/* background-color: rgba(0, 0, 0,0.8); */
+
+.login-modal, .pass-modal, .signup-modal  {
   background: var(--mainGrey);
 	width: 100%;
 	height: 100%;
@@ -547,7 +550,7 @@ input {
 	border: 1px solid gray;
 }
 
-.login-close, .forgot-close {
+.login-close, .forgot-close, .signup-close {
 	position: absolute;
 	top: 0;
 	right: 10px;
@@ -639,6 +642,15 @@ form .txt_field {
   cursor: pointer;
 }
 
+.error{
+  display: none;
+  margin: -5px 0 20px 5px;
+  border-radius: 4px;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+  background: rgba(255, 11, 11, 0.4);
+}
 .pass:hover {
   text-decoration: underline;
 }
@@ -677,3 +689,29 @@ input[type="submit"]:hover {
   text-decoration: underline;
 }
 /* End of model */
+/* account name */
+.account_name {
+	background-color: white;
+	border-radius: 8px;
+	text-decoration: none;
+	padding: 10px;
+  font-size: 0.8em;
+	color: black;
+  transition: var(--mainTransition);
+	display: flex;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  display: none;
+ 
+	
+}
+.account_name p{
+  width: 100%;
+  padding:0  18px;
+}
+.account_name:hover {
+  background-color: var(--mainWhite);
+  color: var(--mainBlack);
+}
+/* end of account name */
