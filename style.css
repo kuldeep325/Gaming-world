@@ -60,7 +60,7 @@ body {
 
 .navbar-center {
   width: 100%;
-  max-width: 1500px;
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -72,7 +72,15 @@ body {
   font-family: 'pixel', sans-serif;
   font-size: 1.5em;
   text-align: center;
+  margin-right: 152px;
   
+}
+@media screen and (max-width: 768px) {
+  .navbar .logo {
+    font-size: 0.8em;
+    text-align: left;
+    padding: 4px;
+  }
 }
 .navbar .logo a{
   text-decoration: none;
@@ -374,7 +382,7 @@ img {
   background: rgb(231, 226, 221);
   padding: 1.5rem;
   transition: var(--mainTransition);
-  /* transform: translateX(100%); */
+  transform: translateX(100%);
 }
 .showCart {
   transform: translateX(0);
@@ -482,6 +490,7 @@ img {
   margin: 0  0 0 8px;
 }
 .login-button {
+
 	background-color: rgb(110, 201, 110);
 	border-radius: 30px;
 	text-decoration: none;
@@ -651,6 +660,18 @@ form .txt_field {
   cursor: pointer;
   background: rgba(255, 11, 11, 0.4);
 }
+.signup-error{
+  position: relative;
+  display: none;
+  top: 1px;
+  margin: 5px 0 0px 5px;
+  border-radius: 4px;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+  background: rgba(255, 11, 11, 0.4);
+}
+
 .pass:hover {
   text-decoration: underline;
 }
@@ -694,7 +715,7 @@ input[type="submit"]:hover {
 	background-color: white;
 	border-radius: 8px;
 	text-decoration: none;
-	padding: 10px;
+	padding: 4px;
   font-size: 0.8em;
 	color: black;
   transition: var(--mainTransition);

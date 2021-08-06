@@ -66,7 +66,7 @@ class UI {
 
                 <button class="bag-btn" data-id=${product.id}>
                     <i class="fas fa-shopping-cart"></i>
-                    add to bag
+                    add to cart
                 </button>
             </div>
             <div class="product-tile">
@@ -92,17 +92,77 @@ class UI {
             }
 
             button.addEventListener('click', (e) => {
-                e.target.innerHTML = "In Cart";
+                e.target.innerHTML = `<i class="fas fa-cart-arrow-down"></i> Added to cart`;
                 e.target.disabled = true;
                 // get product from products
                 let cartItem = { ...Storage.getProducts(id), amount: 1 };
                 // add the product to cart
                 cart = [...cart, cartItem]
                 // save cart in the local storage
-                Storage.saveCart(cart)
+                Storage.saveCart(cart);
+                // set cart values
+                this.setCartValues(cart);
+                // display cart item
+                this.addCartItem(cartItem)
+                //show the cart
+                // this.showCart();
             })
 
         });
+    }
+    setCartValues(cart) {
+        let tempTotal = 0;
+        let itemsTotal = 0;
+        cart.map(item => {
+            tempTotal += item.Price * item.amount;
+            itemsTotal += item.amount
+        })
+        cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+        cartItems.innerText = itemsTotal;
+
+    }
+    addCartItem(item) {
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `<img src=${item.image}>
+        <div>
+            <h4>${item.Title}</h4>
+            <h5>$${item.Price}</h5>
+            <span class="remove-item" data-id=${item.id}>remove</span>
+        </div>
+        <div>
+            <i class="fas fa-chevron-up" data-id=${item.id}> </i>
+            <p class="item-amount">${item.amount}</p>
+            <i class="fas fa-chevron-down" data-id=${item.id}></i>
+        </div>`
+        cartContent.appendChild(div);
+
+    }
+    showCart() {
+        if (loginStatus) {
+            cartOverlay.classList.add('transparentBcg');
+            cartDOM.classList.add('showCart');
+            body.style.overflow = "hidden"
+        } else {
+            login();
+        }
+
+    }
+
+    setupAPP() {
+        cart = Storage.getCart();
+        this.setCartValues(cart);
+        this.populateCart(cart);
+        cartBtn.addEventListener('click', this.showCart);
+        closeCartBtn.addEventListener('click', this.hideCart)
+    }
+    populateCart(cart) {
+        cart.forEach(item => this.addCartItem(item));
+    }
+    hideCart() {
+        cartOverlay.classList.remove("transparentBcg");
+        cartDOM.classList.remove("showCart");
+        body.style.overflow = "auto"
     }
 }
 
@@ -115,14 +175,21 @@ class Storage {
         let products = JSON.parse(localStorage.getItem('products'));
         return products.find(product => product.id === id)
     }
-    static saveCart() {
+    static saveCart(cart) {
         localStorage.setItem('cart', JSON.stringify(cart))
+    }
+
+    static getCart() {
+        return localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const ui = new UI()
     const products = new Products();
+    // setup app
+    ui.setupAPP();
+
     products.getProducts().then(products => {
         ui.displayProducts(products)
         Storage.saveProducts(products)
@@ -131,6 +198,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 })
+
+
+
+
+
+
+
+
+
+
+
 
 
 // log in
@@ -144,12 +222,19 @@ $(document).ready(function () {
         if ((nm1.length > 0 && ps1.length > 0) && (ps1 === ps1confirm)) {
             document.getElementById('signup-form').innerHTML = "";
             document.getElementById('signupHead').innerHTML = `<p>Signup successful</p><br><p>Please login!</p> `
+            setTimeout(function () {
+                login()
+            }, 1500)
             localStorage.setItem("username", nm1);
             localStorage.setItem("password", ps1);
             localStorage.setItem("email", email);
         }
         else if (ps1 !== ps1confirm) {
-            alert("password not matched")
+            document.querySelector('.signup-error').style.display = "block";
+            document.querySelector('.signup-error').innerHTML = "Passwords not matched"
+            setTimeout(function () {
+                document.querySelector('.signup-error').style.display = "none"
+            }, 3000)
         }
         else {
             alert("please input username and password", nm1)
@@ -169,6 +254,7 @@ $(document).ready(function () {
             userName.innerHTML = enteredName;
             loginStatus = true;
             closeLogin();
+            this.showCart();
         }
         else {
 
@@ -242,5 +328,6 @@ function forgotPassModal() {
 function signout() {
     loginBtn.style.display = "flex";
     account.style.display = "none";
+    loginStatus = false;
 }
 

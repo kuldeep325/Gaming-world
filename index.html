@@ -18,20 +18,18 @@
     <nav class="navbar">
         <div class="navbar-center">
 
-            <!-- model btn -->
+            <!--login model btn -->
             <a href="#login" id="button" class="login-button">
                 <p>LOGIN</p>
             </a>
-
             <a href="#account" id="account-name" class="account_name">
                 <p>Hello!,<b> <span class="userName"></span></b><span class="signoutbtn">
 
                         <i class="fas fa-sign-out-alt"></i>
                     </span></p>
-
             </a>
 
-            <!-- end of model btn -->
+            <!-- end of login model btn -->
             <span class="logo"><a href="#"> Gaming World </a></span>
 
             <div class="cart-btn">
@@ -148,8 +146,13 @@
             <div class="signup-close">+</div>
             <h1 id="signupHead">Sign up</h1>
             <form id="signup-form">
+
+                <div class="signup-error">
+
+                </div>
                 <div class="txt_field">
-                    <input id="email" type="text" placeholder="Email" value="" required>
+                    <input id="email" type="text" placeholder="" value="" required>
+                    <label>Email</label>
                 </div>
                 <div class="txt_field">
                     <input id="name1" type="text" placeholder="Username" value="" required>
@@ -183,22 +186,12 @@
             <div class="cart-content">
                 <!-- cart item -->
                 <div class="cart-item">
-                    <img src="./images/img1.jpg" alt="">
-                    <div>
-                        <h4>game one</h4>
-                        <h5>$99.00</h5>
-                        <span class="remove-item">remove</span>
-                    </div>
-                    <div>
-                        <i class="fas fa-chevron-up"> </i>
-                        <p class="item-amount">0</p>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+
                 </div>
                 <!-- end of cart item -->
             </div>
             <div class="cart-footer">
-                <h3>your total : $ <span class="cart-total">0</span></h3>
+                <h3>your total : $<span class="cart-total">0</span></h3>
                 <button class="clear-cart banner-btn">
                     Purchase
                 </button>
