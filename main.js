@@ -87,12 +87,12 @@ class UI {
             let id = button.dataset.id;
             let inCart = cart.find(item => item.id === id);
             if (inCart) {
-                button.innerText = "In Cart";
+                button.innerText = "In- Cart";
                 button.disabled = true;
             }
 
             button.addEventListener('click', (e) => {
-                e.target.innerHTML = `<i class="fas fa-cart-arrow-down"></i> Added to cart`;
+                e.target.innerText = "In cart";
                 e.target.disabled = true;
                 // get product from products
                 let cartItem = { ...Storage.getProducts(id), amount: 1 };
@@ -105,7 +105,7 @@ class UI {
                 // display cart item
                 this.addCartItem(cartItem)
                 //show the cart
-                // this.showCart();
+                this.showCart();
             })
 
         });
@@ -124,7 +124,8 @@ class UI {
     addCartItem(item) {
         const div = document.createElement('div');
         div.classList.add('cart-item');
-        div.innerHTML = `<img src=${item.image}>
+        div.innerHTML = `
+        <img src=${item.image}>
         <div>
             <h4>${item.Title}</h4>
             <h5>$${item.Price}</h5>
@@ -134,11 +135,15 @@ class UI {
             <i class="fas fa-chevron-up" data-id=${item.id}> </i>
             <p class="item-amount">${item.amount}</p>
             <i class="fas fa-chevron-down" data-id=${item.id}></i>
-        </div>`
+        </div>
+        
+        `
         cartContent.appendChild(div);
 
     }
     showCart() {
+
+
         if (loginStatus) {
             cartOverlay.classList.add('transparentBcg');
             cartDOM.classList.add('showCart');
@@ -163,6 +168,62 @@ class UI {
         cartOverlay.classList.remove("transparentBcg");
         cartDOM.classList.remove("showCart");
         body.style.overflow = "auto"
+    }
+    cartLogic() {
+        clearCartBtn.addEventListener('click', () => {
+            this.clearCart();
+        });
+        cartContent.addEventListener('click', event => {
+            if (event.target.classList.contains('remove-item')) {
+                let removeItem = event.target;
+                let id = removeItem.dataset.id;
+                cartContent.removeChild
+                    (removeItem.parentElement.parentElement);
+                this.removeItem(id);
+
+            }
+            else if (event.target.classList.contains('fa-chevron-up')) {
+                let addAmount = event.target;
+                let id = addAmount.dataset.id;
+                let tempItem = cart.find(item => item.id === id);
+                tempItem.amount = tempItem.amount + 1;
+                Storage.saveCart(cart);
+                this.setCartValues(cart);
+                addAmount.nextElementSibling.innerHTML = tempItem.amount;
+            }
+            else if (event.target.classList.contains('fa-chevron-down')) {
+                let lowerAmount = event.target;
+                let id = lowerAmount.dataset.id;
+                let tempItem = cart.find(item => item.id === id);
+                tempItem.amount = tempItem.amount - 1;
+                if (tempItem.amount > 0) {
+                    Storage.saveCart(cart);
+                    this.setCartValues(cart);
+                    lowerAmount.previousElementSibling.innerText = tempItem.amount;
+                } else {
+                    cartContent.removeChild(lowerAmount.parentElement.parentElement);
+                    this.removeItem(id)
+                }
+            }
+        })
+    }
+    clearCart() {
+        let cartItems = cart.map(item => item.id);
+        cartItems.forEach(id => this.removeItem(id));
+        cartContent.innerHTML = ""
+        this.hideCart()
+    }
+
+    removeItem(id) {
+        cart = cart.filter(item => item.id !== id);
+        this.setCartValues(cart);
+        Storage.saveCart(cart);
+        let button = this.getSingleButton(id);
+        button.disabled = false;
+        button.innerHTML = `<i class="fas fa-shopping-cart"></i>add to cart`
+    }
+    getSingleButton(id) {
+        return buttonsDOM.find(button => button.dataset.id === id);
     }
 }
 
@@ -195,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Storage.saveProducts(products)
     }).then(() => {
         ui.addToCartBtns();
+        ui.cartLogic()
     })
 
 })
@@ -254,7 +316,7 @@ $(document).ready(function () {
             userName.innerHTML = enteredName;
             loginStatus = true;
             closeLogin();
-            this.showCart();
+
         }
         else {
 
@@ -267,9 +329,14 @@ $(document).ready(function () {
     });
     $("#forgotPassword").submit(function () {
         var RegisteredEmail = localStorage.getItem("email")
-        var ForgotPassEmail = $("#email").val();
-        if (ForgotPassEmail === RegisteredEmail) {
-
+        var ForgotPassEmail = $("#forgotPasswordEmail").val();
+        if (ForgotPassEmail == RegisteredEmail) {
+            document.querySelector('.displayMsg').innerHTML = "password has been sent to your email!"
+            setTimeout(function () {
+                closeForgotPass();
+            }, 1200)
+        } else {
+            document.querySelector('.displayMsg').innerHTML = ForgotPassEmail, "Please check your Email and try again!"
         }
     })
 });

@@ -16,18 +16,19 @@
 <body>
     <!-- nav -->
     <nav class="navbar">
+        <!--login model btn -->
+        <a href="#login" id="button" class="login-button">
+            <p>LOGIN</p>
+        </a>
+        <a href="#account" id="account-name" class="account_name">
+            <p>Hello!,<b> <span class="userName"></span></b><span class="signoutbtn">
+
+                    <i class="fas fa-sign-out-alt"></i>
+                </span></p>
+        </a>
         <div class="navbar-center">
 
-            <!--login model btn -->
-            <a href="#login" id="button" class="login-button">
-                <p>LOGIN</p>
-            </a>
-            <a href="#account" id="account-name" class="account_name">
-                <p>Hello!,<b> <span class="userName"></span></b><span class="signoutbtn">
 
-                        <i class="fas fa-sign-out-alt"></i>
-                    </span></p>
-            </a>
 
             <!-- end of login model btn -->
             <span class="logo"><a href="#"> Gaming World </a></span>
@@ -131,9 +132,10 @@
                     <input id="forgotPasswordEmail" type="text" placeholder="" value="" required>
                     <span></span>
                     <label>Email</label>
-                </div>
-                <div>
 
+                </div>
+                <p><span class="displayMsg"></span></p>
+                <div>
                     <input id="submit_btn_forgot" type="submit" value="Submit">
                 </div>
             </form>
@@ -155,14 +157,17 @@
                     <label>Email</label>
                 </div>
                 <div class="txt_field">
-                    <input id="name1" type="text" placeholder="Username" value="" required>
+                    <input id="name1" type="text" placeholder="" value="" required>
+                    <label>Username</label>
                 </div>
 
                 <div class="txt_field">
                     <input id="pass1" type="password" placeholder="Password" value="" required>
+                    <label>Password</label>
                 </div>
                 <div class="txt_field">
                     <input id="confirmPass" type="password" placeholder="Confirm Password" value="" required>
+                    <label>Confirm Password"</label>
                 </div>
                 <input id="signup_btn" type="submit" value="Signup">
             </form>
@@ -185,9 +190,9 @@
             <h2>your cart</h2>
             <div class="cart-content">
                 <!-- cart item -->
-                <div class="cart-item">
+                <!-- <div class="cart-item"> -->
 
-                </div>
+                <!-- </div> -->
                 <!-- end of cart item -->
             </div>
             <div class="cart-footer">

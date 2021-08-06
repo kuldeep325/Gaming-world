@@ -60,7 +60,7 @@ body {
 
 .navbar-center {
   width: 100%;
-  max-width: 1100px;
+  max-width: 95%;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -72,14 +72,18 @@ body {
   font-family: 'pixel', sans-serif;
   font-size: 1.5em;
   text-align: center;
-  margin-right: 152px;
+  
   
 }
 @media screen and (max-width: 768px) {
   .navbar .logo {
-    font-size: 0.8em;
-    text-align: left;
+    font-size: 1.0em;
+    text-align: center;
     padding: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    word-break: keep-all;
+    
   }
 }
 .navbar .logo a{
@@ -495,6 +499,7 @@ img {
 	border-radius: 30px;
 	text-decoration: none;
 	padding: 10px;
+  margin-left: 16px;
   font-size: 0.8em;
 	color: white;
   transition: var(--mainTransition);
@@ -724,8 +729,13 @@ input[type="submit"]:hover {
   text-transform: uppercase;
   flex-wrap: wrap;
   display: none;
+  margin-left: 16px;
  
 	
+}
+.fa-sign-out-alt {
+  color: red;
+  margin: 0 0 0 0;
 }
 .account_name p{
   width: 100%;
