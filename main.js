@@ -19,10 +19,11 @@ const signupModal = document.querySelector(".signup_link");
 const account = document.querySelector(".account_name");
 const userName = document.querySelector(".userName");
 const signoutbtn = document.querySelector('.signoutbtn');
+const renderModalContent = document.querySelector('.modal-content')
 // cart
 let cart = [];
 let buttonsDOM = [];
-let loginStatus = false;
+let loginStatus = true;
 
 //end of test
 
@@ -63,11 +64,21 @@ class UI {
             <article id="p-scroll" class="product">
             <div class="img-container">
                 <img src=${product.image} alt="product" class="product-img">
-
+                
+               
+                <div class="imageBtns">
+                <button class="info-btn" onclick="productModal(${product.id})" data-id=${product.id}>
+                <i class="fas fa-bars"></i>               
+                </button>
+                              
+                </button>
+                
                 <button class="bag-btn" data-id=${product.id}>
                     <i class="fas fa-shopping-cart"></i>
                     add to cart
                 </button>
+                </div>
+               
             </div>
             <div class="product-tile">
                 <p>24/07/21</p>
@@ -110,6 +121,53 @@ class UI {
 
         });
     }
+
+    infoBtns(products) {
+        const buttons = [...document.querySelectorAll('.info-btn')];
+        buttonsDOM = buttons;
+        console.log('infoBtns-products', products)
+        buttons.forEach(button => {
+            let id = button.dataset.id;
+
+            let infoItem = { ...Storage.getProducts(id), amount: 1 };
+            button.addEventListener('click', (e) => {
+                // let infoItems = cart.filter(e => e.dataset.id === id);
+                console.log("target id", e.target);
+                result += `
+                
+                    <h3>hello</h3>
+                    
+                `
+                renderModalContent.innerHTML = result
+                descriptionModalShow(products);
+            })
+
+        });
+    }
+    //test 
+    infoBtn1(products) {
+        const buttons = [...document.querySelectorAll('.info-btn')];
+        buttonsDOM = buttons;
+        console.log('infoBtns-products', products)
+        buttons.forEach(button => {
+            let id = button.dataset.id;
+
+            let infoItem = { ...Storage.getProducts(id), amount: 1 };
+            button.addEventListener('click', (e) => {
+                // let infoItems = cart.filter(e => e.dataset.id === id);
+                console.log("target id", e.target);
+                result += `
+                
+                    <h3>hello</h3>
+                    
+                `
+                renderModalContent.innerHTML = result
+                descriptionModalShow(products);
+            })
+
+        });
+    }
+
     setCartValues(cart) {
         let tempTotal = 0;
         let itemsTotal = 0;
@@ -141,9 +199,11 @@ class UI {
         cartContent.appendChild(div);
 
     }
+
+    showDescModal() {
+
+    }
     showCart() {
-
-
         if (loginStatus) {
             cartOverlay.classList.add('transparentBcg');
             cartDOM.classList.add('showCart');
@@ -248,15 +308,20 @@ class Storage {
 document.addEventListener("DOMContentLoaded", () => {
     const ui = new UI()
     const products = new Products();
-    // setup app
     ui.setupAPP();
 
     products.getProducts().then(products => {
         ui.displayProducts(products)
+        ui.infoBtns(products);
+        ui.infoBtn1(products);
         Storage.saveProducts(products)
     }).then(() => {
+
         ui.addToCartBtns();
+        // ui.infoBtns();
         ui.cartLogic()
+
+
     })
 
 })
@@ -277,11 +342,75 @@ document.addEventListener("DOMContentLoaded", () => {
 $(document).ready(function () {
 
     $("#signup-form").submit(function () {
-        var nm1 = $("#name1").val();
-        var ps1 = $("#pass1").val();
-        var email = $("#email").val();
-        var ps1confirm = $("#confirmPass").val();
-        if ((nm1.length > 0 && ps1.length > 0) && (ps1 === ps1confirm)) {
+        var nm1 = $("#name1").val().trim();
+        var ps1 = $("#pass1").val().trim();
+        var email = $("#email").val().trim();
+        var ps1confirm = $("#confirmPass").val().trim();
+        var patternEmail = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/;
+        var patternUsername = /^[A-Za-z0-9]{3,30}$/;
+        var patternPassword = /^[a-zA-Z0-9!@#$%^&*]{6,20}$/;
+        var isValid = true;
+        if (email == "") {
+            document.querySelector('.signup-error').style.display = "block";
+            document.querySelector('.signup-error').innerHTML = "Email is Required";
+            setTimeout(function () {
+                document.querySelector('.signup-error').style.display = "none"
+            }, 3000)
+            isValid = false;
+        }
+        else if (!patternEmail.test(email)) {
+            document.querySelector('.signup-error').style.display = "block";
+            document.querySelector('.signup-error').innerHTML = "Invalid Email";
+            setTimeout(function () {
+                document.querySelector('.signup-error').style.display = "none"
+            }, 3000)
+            isValid = false;
+        }
+        if (isValid) {
+            if (nm1 == "") {
+                document.querySelector('.signup-error').style.display = "block";
+                document.querySelector('.signup-error').innerHTML = "Name Required";
+                setTimeout(function () {
+                    document.querySelector('.signup-error').style.display = "none"
+                }, 3000)
+                isValid = false;
+            }
+            else if (!patternUsername.test(nm1)) {
+                document.querySelector('.signup-error').style.display = "block";
+                document.querySelector('.signup-error').innerHTML = "Invalid Name";
+                setTimeout(function () {
+                    document.querySelector('.signup-error').style.display = "none"
+                }, 3000)
+                isValid = false;
+            }
+        }
+        if (isValid) {
+            if (ps1 == "") {
+                document.querySelector('.signup-error').style.display = "block";
+                document.querySelector('.signup-error').innerHTML = "Password Required";
+                setTimeout(function () {
+                    document.querySelector('.signup-error').style.display = "none"
+                }, 3000)
+                isValid = false;
+            }
+            else if (!patternPassword.test(ps1)) {
+                document.querySelector('.signup-error').style.display = "block";
+                document.querySelector('.signup-error').innerHTML = "Invalid Password. Length Should be atleast 6 Characters";
+                setTimeout(function () {
+                    document.querySelector('.signup-error').style.display = "none"
+                }, 3000)
+                isValid = false;
+            }
+            else if (ps1 !== ps1confirm) {
+                document.querySelector('.signup-error').style.display = "block";
+                document.querySelector('.signup-error').innerHTML = "Passwords do not match";
+                setTimeout(function () {
+                    document.querySelector('.signup-error').style.display = "none"
+                }, 3000)
+                isValid = false;
+            }
+        }
+        if (isValid) {
             document.getElementById('signup-form').innerHTML = "";
             document.getElementById('signupHead').innerHTML = `<p>Signup successful</p><br><p>Please login!</p> `
             setTimeout(function () {
@@ -291,16 +420,7 @@ $(document).ready(function () {
             localStorage.setItem("password", ps1);
             localStorage.setItem("email", email);
         }
-        else if (ps1 !== ps1confirm) {
-            document.querySelector('.signup-error').style.display = "block";
-            document.querySelector('.signup-error').innerHTML = "Passwords not matched"
-            setTimeout(function () {
-                document.querySelector('.signup-error').style.display = "none"
-            }, 3000)
-        }
-        else {
-            alert("please input username and password", nm1)
-        }
+
 
 
     });
@@ -397,4 +517,80 @@ function signout() {
     account.style.display = "none";
     loginStatus = false;
 }
+// Description modal
+var btn = document.querySelector(".info-btn");
+var modal = document.getElementById("modal-description");
+var closeIcon = document.querySelector(".close");
+btn.onclick = descriptionModalShow;
+closeIcon.onclick = descriptionModalClose;
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+function descriptionModalShow() {
+    modal.style.display = "flex";
+}
+
+function descriptionModalClose() {
+    modal.style.display = "none";
+}
+
+document.querySelector('.info-btn1').addEventListener('click', function () {
+
+})
+
+function productModal(elementId) {
+
+    const products = new Products();
+    const singleProduct = [];
+    products.getProducts().then((allProducts) => {
+        for (let i = 0; i < allProducts.length; i++) {
+            if (allProducts[i].id == elementId) {
+                // singleProduct.push(allProducts[i]);
+                console.log('allProducts[i]', allProducts[i]);
+                const productID = allProducts[i].id;
+                const productTitle = allProducts[i].Title;
+                const productDesc = allProducts[i].Description;
+                const productImage = allProducts[i].image;
+                const productPrice = allProducts[i].price;
+                const productSize = allProducts[i].Game_file_size;
+
+
+                let result = "";
+                result += `
+                <span class="close" onclick="descriptionModalClose()">&times;</span>
+                        <h2 class="titleDescrition">${productTitle}</h2>
+                        <div class="details">
+            
+                            <img src=${productImage} alt="">
+            
+                            <div class="content">
+            
+                                <h4>Description:</h4>
+                                <br>
+                                <p>${productDesc}</p>
+                                <br>
+                                <h4>Size: <span class="size">${productSize}</span></h4>
+                            </div>
+                        </div>
+                            
+                       
+                        `
+                renderModalContent.innerHTML = result;
+
+
+
+
+            }
+        }
+
+    })
+    // console.log('singleProduct', singleProduct);
+    // let abc = singleProduct && singleProduct.map((a) => a.id);
+    // console.log('abc', abc);
+
+    descriptionModalShow();
+}
+
 
