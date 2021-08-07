@@ -23,7 +23,7 @@ const renderModalContent = document.querySelector('.modal-content')
 // cart
 let cart = [];
 let buttonsDOM = [];
-let loginStatus = true;
+let loginStatus = false;
 
 //end of test
 
@@ -122,51 +122,7 @@ class UI {
         });
     }
 
-    infoBtns(products) {
-        const buttons = [...document.querySelectorAll('.info-btn')];
-        buttonsDOM = buttons;
-        console.log('infoBtns-products', products)
-        buttons.forEach(button => {
-            let id = button.dataset.id;
 
-            let infoItem = { ...Storage.getProducts(id), amount: 1 };
-            button.addEventListener('click', (e) => {
-                // let infoItems = cart.filter(e => e.dataset.id === id);
-                console.log("target id", e.target);
-                result += `
-                
-                    <h3>hello</h3>
-                    
-                `
-                renderModalContent.innerHTML = result
-                descriptionModalShow(products);
-            })
-
-        });
-    }
-    //test 
-    infoBtn1(products) {
-        const buttons = [...document.querySelectorAll('.info-btn')];
-        buttonsDOM = buttons;
-        console.log('infoBtns-products', products)
-        buttons.forEach(button => {
-            let id = button.dataset.id;
-
-            let infoItem = { ...Storage.getProducts(id), amount: 1 };
-            button.addEventListener('click', (e) => {
-                // let infoItems = cart.filter(e => e.dataset.id === id);
-                console.log("target id", e.target);
-                result += `
-                
-                    <h3>hello</h3>
-                    
-                `
-                renderModalContent.innerHTML = result
-                descriptionModalShow(products);
-            })
-
-        });
-    }
 
     setCartValues(cart) {
         let tempTotal = 0;
@@ -312,13 +268,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     products.getProducts().then(products => {
         ui.displayProducts(products)
-        ui.infoBtns(products);
-        ui.infoBtn1(products);
+
         Storage.saveProducts(products)
     }).then(() => {
 
         ui.addToCartBtns();
-        // ui.infoBtns();
+
         ui.cartLogic()
 
 
@@ -521,7 +476,7 @@ function signout() {
 var btn = document.querySelector(".info-btn");
 var modal = document.getElementById("modal-description");
 var closeIcon = document.querySelector(".close");
-btn.onclick = descriptionModalShow;
+// btn.onclick = descriptionModalShow;
 closeIcon.onclick = descriptionModalClose;
 window.onclick = function (event) {
     if (event.target == modal) {
@@ -536,9 +491,7 @@ function descriptionModalClose() {
     modal.style.display = "none";
 }
 
-document.querySelector('.info-btn1').addEventListener('click', function () {
 
-})
 
 function productModal(elementId) {
 
